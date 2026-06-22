@@ -50,6 +50,14 @@ builder.Services.AddAuthentication(
                     Encoding.UTF8.GetBytes(jwt.Key))
         };
 
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            context.Token = context.Request.Cookies["accessToken"];
+            return Task.CompletedTask;
+        }
+    };
 });
 
 builder.Services.AddAuthorization();

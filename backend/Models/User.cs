@@ -15,6 +15,10 @@ public class User
 
     public string? ProfileImagePath { get; set; }
 
+    public string? RefreshToken { get; set; }
+
+    public DateTime? RefreshTokenExpiryTime { get; set; }
+
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public ICollection<Order> HandledOrders { get; set; } = new List<Order>();
