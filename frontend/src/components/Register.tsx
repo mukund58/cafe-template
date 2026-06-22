@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { authService } from '../api/authService';
 
 export const Register = () => {
@@ -6,6 +7,7 @@ export const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -13,7 +15,7 @@ export const Register = () => {
     try {
       const data = await authService.register(name, email, password);
       alert(`Account created successfully! Welcome ${data.name}`);
-      window.location.reload();
+      navigate('/dashboard', { replace: true });
     } catch (err: any) {
       setError(err.response?.data || 'Registration failed. Try a different email.');
     }

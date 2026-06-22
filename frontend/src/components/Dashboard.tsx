@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { authService } from '../api/authService';
 import type { UserResponse } from '../api/authService'; // Fixed: Explicitly imported as a type
 
@@ -11,8 +11,10 @@ export const Dashboard = () => {
       .catch(() => handleLogout());
   }, []);
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/login';
+    authService.logout()
+      .finally(() => {
+        window.location.href = '/login';
+      });
   };
 
   if (!user) return <div className="p-8">Loading profile...</div>;
